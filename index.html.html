@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Успешно</title>
+<style>
+ body{
+   margin:0;
+   background:#000;
+   font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial;
+   display:flex;
+   justify-content:center;
+   align-items:center;
+   height:100vh;
+   overflow:hidden;
+   color:white;
+ }
+
+ .pulse{
+   position:absolute;
+   width:160px;
+   height:160px;
+   border-radius:50%;
+   background:rgba(0,255,100,0.15);
+   animation:pulse 2s infinite ease-out;
+ }
+ @keyframes pulse{
+   0%{transform:scale(.5); opacity:.9;}
+   100%{transform:scale(2.8); opacity:0;}
+ }
+
+ .card{
+   width:360px;
+   padding:30px;
+   border-radius:20px;
+   text-align:center;
+   position:relative;
+   z-index:10;
+ }
+
+ .circle{
+   width:120px;
+   height:120px;
+   border-radius:50%;
+   background:#0f2718;
+   border:2px solid #2bff88;
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   margin:0 auto 20px;
+   animation:pop .45s ease forwards;
+   transform:scale(.6);
+ }
+ @keyframes pop{
+   to{transform:scale(1); opacity:1;}
+ }
+
+ svg{width:80px; height:80px;}
+ .circle-path{
+   stroke:#2bff88;
+   stroke-width:7;
+   fill:none;
+   stroke-dasharray:400;
+   stroke-dashoffset:400;
+   animation:drawCircle .7s ease forwards;
+ }
+ @keyframes drawCircle{to{stroke-dashoffset:0;}}
+
+ .check-path{
+   stroke:#2bff88;
+   stroke-width:8;
+   fill:none;
+   stroke-dasharray:60;
+   stroke-dashoffset:60;
+   animation:drawCheck .5s ease forwards;
+   animation-delay:.7s;
+ }
+ @keyframes drawCheck{to{stroke-dashoffset:0;}}
+
+ h1{font-size:28px;margin:10px 0;}
+ p{margin:0;font-size:16px;color:#b7dfc8;}
+</style>
+</head>
+<body>
+
+<!-- Пульсация как у SberPay -->
+<div class="pulse"></div>
+
+<!-- Звук (не Apple Pay, но свободный короткий chime) -->
+<audio id="sound">
+ <source type="audio/mp3"
+ src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCAAAAAAAAAAAAAAAAAAAAA">
+</audio>
+
+<div class="card">
+ <div class="circle">
+   <svg viewBox="0 0 120 120">
+     <circle class="circle-path" cx="60" cy="60" r="46"/>
+     <path class="check-path" d="M40 63 L54 78 L83 45"/>
+   </svg>
+ </div>
+ <h1>Успешно</h1>
+ <p>Платёж прошёл</p>
+</div>
+
+<script>
+window.onload = () => {
+  const s = document.getElementById("sound");
+  s.volume = 0.9;
+  s.play().catch(()=>{});
+};
+</script>
+
+</body>
+</html>
